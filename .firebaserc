@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "cronos-3b9a1": {
+      "hosting": {
+        "Cronos": [
+          "cronos-3b9a1"
+        ]
+      }
+    }
+  }
+}

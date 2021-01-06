@@ -1,0 +1,23 @@
+<form (ngSubmit)='addTask()' class="example-form">
+    <mat-form-field class="example-full-width">
+        <mat-label>Titulo</mat-label>
+        <input  
+            matInput
+            name='title'
+            placeholder = 'Ej: Ir al trabajo'
+            [(ngModel)] =  inputTask.title      
+        >
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <mat-label>Descripcion</mat-label>
+        <textarea 
+            matInput
+            name='description'
+            placeholder="Ex. It makes me feel..."
+            [(ngModel)] = inputTask.description
+        >
+        </textarea>
+    </mat-form-field>
+    <button type='submit'>Submit</button>
+</form>
