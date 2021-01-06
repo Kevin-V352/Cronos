@@ -1,5 +1,26 @@
 <div>
-    <mat-card class="text" *ngFor="let item of items" class='task-list-card'>
-        {{item.name}} - {{item.id}}
-    </mat-card>
+    <mat-expansion-panel 
+        hideToggle class="text" 
+        *ngFor="let task of tasks" 
+        class='task-list-card'
+    >
+        <mat-expansion-panel-header>
+            <mat-panel-title class='task-list-card-title'>
+                {{task.title}}
+            </mat-panel-title>
+            <button 
+                mat-icon-button
+                (click)='openModal(task.title, task.description, task.id)'
+            >
+                <mat-icon>create</mat-icon>  
+            </button>
+            <button 
+                mat-icon-button
+                (click)='deleteTask(task.id)'
+            >
+                <mat-icon>delete</mat-icon>
+          </button>
+        </mat-expansion-panel-header>
+        <p>{{task.description}}</p>
+      </mat-expansion-panel>
 </div>

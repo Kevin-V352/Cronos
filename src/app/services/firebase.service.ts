@@ -1,34 +1,53 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import {
+    AngularFirestore,
+    AngularFirestoreCollection,
+    AngularFirestoreDocument
+} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-export interface Item { name: string; }
+export interface Task {
+    title: string;
+    description: string;
+}
 
 @Injectable({
     providedIn: 'root'
 })
 export class FirebaseService {
 
-    private itemsCollection: AngularFirestoreCollection<Item>;
-    items: Observable<Item[]>;
+    private tasksCollection: AngularFirestoreCollection<Task>;
+    private taskDoc: AngularFirestoreDocument<Task> | undefined;
+    tasks: Observable<Task[]>;
 
     constructor(private afs: AngularFirestore) {
-        this.itemsCollection = afs.collection<Item>('items');
-        this.items = this.itemsCollection.snapshotChanges().pipe(
+        this.tasksCollection = afs.collection<Task>('userTasks');
+        this.tasks = this.tasksCollection.snapshotChanges().pipe(
             map(actions => actions.map(a => {
-              const data = a.payload.doc.data() as Item;
-              const id = a.payload.doc.id;
-              return { id, ...data };
+                const data = a.payload.doc.data() as Task;
+                const id = a.payload.doc.id;
+                return { id, ...data };
             }))
-          );
+        );
     }
 
-    itemList() {
-        return this.items;
+    taskList() {
+        return this.tasks;
     }
 
-    addItem(item: Item) {
-        this.itemsCollection.add(item);
+    addTask(task: Task) {
+        this.tasksCollection.add(task);
+    }
+
+    deleteTask(taskId: string) {
+        console.log(taskId)
+        this.taskDoc = this.afs.doc<Task>(`userTasks/${taskId}`);
+        this.taskDoc.delete();
+    }
+
+    editTask(task: any) {
+        this.taskDoc = this.afs.doc<Task>(`userTasks/${task.id}`);
+        this.taskDoc.update(task);
     }
 }

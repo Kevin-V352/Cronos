@@ -1,3 +1,9 @@
 .task-list-card {
     width: 45vw;
+    margin-bottom: 1rem;
+}
+
+.task-list-card-title {
+    display: flex;
+    align-items: center;
 }

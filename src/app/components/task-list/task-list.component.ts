@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FirebaseService } from '../../services/firebase.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ModalEditComponent} from '../modal-edit/modal-edit.component';
 
 @Component({
     selector: 'app-task-list',
@@ -8,12 +10,28 @@ import { FirebaseService } from '../../services/firebase.service';
 })
 export class TaskListComponent {
 
-    items: any;
+    tasks: any;
 
-    constructor(private _firebaseService: FirebaseService) {
-        _firebaseService.itemList().subscribe(item => {
-            this.items = item;
-            console.log(this.items)
+    constructor(private _firebaseService: FirebaseService, public dialog: MatDialog) {
+        _firebaseService.taskList().subscribe(task => {
+            this.tasks = task;
+            console.log(this.tasks)
+        })
+    }
+
+    deleteTask (taskId: string) {
+        this._firebaseService.deleteTask(taskId)
+    }
+
+    openModal(title: string, description: string, id: string) {
+        let dataTask = {
+            title,
+            description,
+            id
+        };
+        let dialogRef = this.dialog.open(ModalEditComponent, {data: dataTask});
+        dialogRef.afterClosed().subscribe(result => {
+            console.log(result)
         })
     }
 }

@@ -1,5 +1,5 @@
-<form (ngSubmit)='addTask()' class="example-form">
-    <mat-form-field class="example-full-width">
+<form (ngSubmit)='addTask()' class='add-task-form'>
+    <mat-form-field class='add-task-title'>
         <mat-label>Titulo</mat-label>
         <input  
             matInput
@@ -9,7 +9,7 @@
         >
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="add-task-title">
         <mat-label>Descripcion</mat-label>
         <textarea 
             matInput
@@ -19,5 +19,5 @@
         >
         </textarea>
     </mat-form-field>
-    <button type='submit'>Submit</button>
+    <button mat-flat-button>Agregar</button>
 </form>

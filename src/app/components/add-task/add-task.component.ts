@@ -17,7 +17,7 @@ export class AddTaskComponent {
 
   addTask() {
     console.log(this.inputTask)
-    /* this._firebaseService.addItem() */
+    this._firebaseService.addTask(this.inputTask)
   }
 
 }
